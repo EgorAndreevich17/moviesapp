@@ -1,0 +1,14 @@
+.body-wrapper {
+    margin-inline: 215px;
+    background-color: #fff;
+    height: 100vh;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 36px; 
+    padding-inline: 36px;
+    padding-top: 21px;
+  }
+  
