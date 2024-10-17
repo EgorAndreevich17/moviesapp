@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Movie } from "../../models/Movie";
+import './SearchBar.scss'
 
 interface SearchBarProps {
   searchMovie: (query: string) => Promise<Movie[]>;
@@ -27,7 +28,8 @@ export default function SearchBar({ setMovies, searchMovie }: SearchBarProps) {
       <input
         type="text"
         value={query}
-        placeholder="Search Movies"
+        className='search-bar'
+        placeholder="Type to search..."
         onChange={handleInputChange}
       />
     </form>
