@@ -36,6 +36,7 @@ export default function Body() {
                 moviename={movie.title}
                 genres={movie.genre_ids}
                 image={movie.poster_path}
+                rate={movie.vote_average}
                 description={movie.overview}
                 date={movie.release_date}
                 isLoading={isLoading} // Передаём состояние загрузки

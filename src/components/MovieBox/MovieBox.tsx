@@ -7,6 +7,7 @@ interface MovieBoxProps {
   image: string;
   description: string;
   date: string;
+  rate: number;
   isLoading: boolean;
 }
 
@@ -14,6 +15,7 @@ export default function MovieBox({
   moviename = "Movie Name",
   genres = [],
   image = "",
+  rate = 0,
   description = "description",
   date = "01/04/1488",
   isLoading,
@@ -44,7 +46,10 @@ export default function MovieBox({
             )}
           </div>
           <div className="movie-wrapper__content movie-content">
+            <div className="movie-content__title-wrapper">
             <h5 className="movie-content__header">{moviename}</h5>
+            <div className='movie-content__rate'>{rate.toFixed(1)}</div>
+            </div>
             <p className="movie-content__date">{date}</p>
             <div className="movie-content__genres">
               {genres.map((genre, index) => (
