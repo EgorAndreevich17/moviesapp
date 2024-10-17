@@ -1,14 +1,27 @@
+$big: 1500px;
+
 .body-wrapper {
-    margin-inline: 215px;
-    background-color: #fff;
-    height: 100vh;
+  --spacing: 36px;
+  margin-inline: 215px;
+  background-color: #fff;
+  // height: 100vh;
+  padding-inline: var(--spacing); 
+  box-sizing: border-box;
+  @media screen and (max-width: $big){
+    margin-inline: 0; /* Убираем большие отступы по бокам */
+    padding-inline: 15px; /* Добавляем минимальные отступы */
   }
-  
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 36px; 
-    padding-inline: 36px;
-    padding-top: 21px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--spacing); 
+  padding-block: 21px;
+  width: 100%;
+  justify-items: center;
+  box-sizing: border-box;
+  @media screen and (max-width: $big) {
+    grid-gap: 24px; /* Уменьшаем отступы между элементами */
   }
-  
+}
