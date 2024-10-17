@@ -9,19 +9,20 @@
     padding-inline: 20px;
     display: flex;
     position: relative;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     overflow: hidden;
+    &__image {
+      max-width: 183px;
+      height: 281px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
   }
 
-  &-image {
-    width: 183px;
-    height: auto;
-    object-fit: cover;
-  }
 
   &-content {
-    margin-left: 183px; //место для картинки, потом как картинка появится убрать
+    // margin-left: 183px;
     padding-inline: 20px;
     display: flex;
     flex-direction: column;
