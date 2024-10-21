@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Movie } from "../../models/Movie";
-import './SearchBar.scss'
+import { Input } from "antd";
+import "./SearchBar.scss";
 
 interface SearchBarProps {
   searchMovie: (query: string) => Promise<Movie[]>;
@@ -12,7 +13,8 @@ export default function SearchBar({ setMovies, searchMovie }: SearchBarProps) {
 
   const findMovies = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) { // Проверка на пустой запрос
+    if (query.trim()) {
+      // Проверка на пустой запрос
       const results = await searchMovie(query);
       setMovies(results || []);
       updateQuery("");
@@ -23,12 +25,20 @@ export default function SearchBar({ setMovies, searchMovie }: SearchBarProps) {
     updateQuery(e.target.value);
   };
 
+  const { Search } = Input;
   return (
     <form onSubmit={findMovies}>
-      <input
+      {/* <input
         type="text"
         value={query}
         className='search-bar'
+        placeholder="Type to search..."
+        onChange={handleInputChange}
+      /> */}
+      <Search
+        type="text"
+        value={query}
+        className="search-bar"
         placeholder="Type to search..."
         onChange={handleInputChange}
       />

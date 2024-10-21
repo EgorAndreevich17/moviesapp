@@ -13,6 +13,7 @@
     justify-content: flex-start;
     overflow: hidden;
     &__image {
+      position: relative;
       min-width: 183px;
       height: 281px;
       object-fit: contain;
@@ -20,11 +21,23 @@
       &-box {
         position: relative;
       }
+      &--title{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
     }
   }
 
   &-content {
-    // margin-left: 183px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -38,7 +51,6 @@
     &__header {
       font-size: 20px;
       margin: 0px;
-      // margin-top: 10px;
     }
 
     &__rate{
@@ -85,9 +97,9 @@
   }
 }
 
-.spinner-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+// .spinner-box {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }

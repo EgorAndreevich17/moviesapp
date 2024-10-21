@@ -1,0 +1,24 @@
+$big: 1500px;
+
+.body-wrapper {
+
+  background-color: #fff;
+  width: 100%;
+  padding-inline: 36px;
+  box-sizing: border-box;
+}
+
+.grid-container {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 36px;
+  padding-block: 21px;
+  width: 100%;
+  justify-items: center;
+  box-sizing: border-box;
+
+  &--alert {
+    grid-column: span 2; 
+  }
+}

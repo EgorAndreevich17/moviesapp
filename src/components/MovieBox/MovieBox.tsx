@@ -1,5 +1,6 @@
 import "./MovieBox.scss";
-import Spinner from "../Spinner/Spinner";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 interface MovieBoxProps {
   moviename: string;
@@ -28,11 +29,11 @@ export default function MovieBox({
     <div className="movie-wrapper">
       {isLoading ? (
         <div className="spinner-box">
-          <Spinner />
+          <Spin indicator={<LoadingOutlined spin />} size="large" />
         </div>
       ) : (
         <>
-          <div className='movie-wrapper__image-box'>
+          <div className="movie-wrapper__image-box">
             {image ? (
               <img
                 className="movie-wrapper__image"
@@ -40,15 +41,19 @@ export default function MovieBox({
                 alt={moviename}
               />
             ) : (
-              <div className="image-spinner-box">
-                <Spinner />
+              <div>
+                <img
+                  className="movie-wrapper__image"
+                  src="src/assets/Default_Background_Art.jpg"
+                />
+                <p className="movie-wrapper__image--title">{moviename}</p>
               </div>
             )}
           </div>
           <div className="movie-wrapper__content movie-content">
             <div className="movie-content__title-wrapper">
-            <h5 className="movie-content__header">{moviename}</h5>
-            <div className='movie-content__rate'>{rate.toFixed(1)}</div>
+              <h5 className="movie-content__header">{moviename}</h5>
+              <div className="movie-content__rate">{rate.toFixed(1)}</div>
             </div>
             <p className="movie-content__date">{date}</p>
             <div className="movie-content__genres">
