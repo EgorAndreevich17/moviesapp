@@ -1,29 +1,29 @@
-import "./MovieBox.scss";
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import './MovieBox.scss'
+import { LoadingOutlined } from '@ant-design/icons'
+import { Spin } from 'antd'
 
 interface MovieBoxProps {
-  moviename: string;
-  genres: number[];
-  image: string;
-  description: string;
-  date: string;
-  rate: number;
-  isLoading: boolean;
+  moviename: string
+  genres: number[]
+  image: string
+  description: string
+  date: string
+  rate: number
+  isLoading: boolean
 }
 
 export default function MovieBox({
-  moviename = "Movie Name",
+  moviename = 'Movie Name',
   genres = [],
-  image = "",
+  image = '',
   rate = 0,
-  description = "description",
-  date = "01/04/1488",
+  description = 'description',
+  date = '01/04/1488',
   isLoading,
 }: MovieBoxProps) {
   const imageUrl = image
     ? `https://image.tmdb.org/t/p/w500${image}`
-    : "default.jpg";
+    : 'default.jpg'
 
   return (
     <div className="movie-wrapper">
@@ -71,5 +71,5 @@ export default function MovieBox({
         </>
       )}
     </div>
-  );
+  )
 }

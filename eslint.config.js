@@ -1,28 +1,54 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import reactPlugin from 'eslint-plugin-react';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+export default [
+  js.configs.recommended,
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.ts', '**/*.tsx'],
+    ignores: ['node_modules', 'dist', 'build'],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      parser: tsParser,
+      ecmaVersion: 2021,
+      sourceType: 'module',
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      react: reactPlugin,
+      '@typescript-eslint': tsPlugin,
+      prettier: prettierPlugin,
+      import: importPlugin,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          moduleDirectory: ['node_modules', 'src/'],
+        },
+      },
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
+      indent: ['error', 2],
+      'prettier/prettier': 'error',
+      'linebreak-style': [0, 'unix'],
+      quotes: ['error', 'single'],
+      'no-undef': 'off',
+      semi: ['error', 'never'],
+      '@typescript-eslint/no-unused-vars': ['warn'], // Изменил на 'warn' для возможности автоматического исправления
+      'import/no-unresolved': [2, { caseSensitive: false }],
+      'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
+      'import/order': [
+        2,
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+        },
       ],
     },
   },
-)
+];

@@ -1,30 +1,29 @@
-import { Tabs } from "antd";
-import SearchPage from "../SearchPage/SearchPage";
+import { Tabs } from 'antd'
+
+import SearchPage from '../SearchPage/SearchPage'
 import './App.scss'
 
 function App() {
   return (
-    <div className='parent-wrapper'>
-
-
+    <div className="parent-wrapper">
       <Tabs
         defaultActiveKey="1"
         centered
         items={[
           {
-            label: `Search`,
+            label: 'Search',
             key: 1,
             children: <SearchPage />,
           },
           {
-            label: `Rated`,
+            label: 'Rated',
             key: 2,
-            children: ``,
+            children: '',
           },
         ]}
       />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
