@@ -1,9 +1,9 @@
-import js from '@eslint/js';
-import reactPlugin from 'eslint-plugin-react';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import importPlugin from 'eslint-plugin-import';
-import prettierPlugin from 'eslint-plugin-prettier';
+import js from '@eslint/js'
+import reactPlugin from 'eslint-plugin-react'
+import tsParser from '@typescript-eslint/parser'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import importPlugin from 'eslint-plugin-import'
+import prettierPlugin from 'eslint-plugin-prettier'
 
 export default [
   js.configs.recommended,
@@ -45,10 +45,17 @@ export default [
       'import/order': [
         2,
         {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+          ],
           'newlines-between': 'always',
         },
       ],
     },
   },
-];
+]

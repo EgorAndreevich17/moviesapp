@@ -1,31 +1,25 @@
-import { useState } from 'react'
-import { Alert } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
+import React from 'react'
 import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import { Alert } from 'antd'
 
-import { Movie } from '../../models/Movie'
+import Pages from '../Pages/Pages'
 import MovieBox from '../MovieBox/MovieBox'
 import SearchBar from '../SearchBar/SearchBar'
-import MoviesAPI from '../../services/MoviesAPI'
+import { useMovies } from '../../context/MovieContext'
 
 import './SearchPage.scss'
 
 export default function SearchPage() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const api = new MoviesAPI()
+  const { movies, page, isLoading, searchMovies } = useMovies()
 
-  const handleSearch = async (query: string): Promise<Movie[]> => {
-    setIsLoading(true)
-    const fetchedMovies = await api.findMovie(query)
-    setMovies(fetchedMovies)
-    setIsLoading(false)
-    return fetchedMovies
+  const handleSearchMovies = async (query: string) => {
+    await searchMovies(query, page)
   }
 
   return (
     <div className="body-wrapper">
-      <SearchBar searchMovie={handleSearch} setMovies={setMovies} />
+      <SearchBar searchMovie={handleSearchMovies} />
       <div className="grid-container">
         {movies && movies.length > 0 ? (
           movies.map((movie) => (
@@ -50,9 +44,10 @@ export default function SearchPage() {
             className="grid-container--alert"
             type="warning"
             description="No Movies were found"
-          ></Alert>
+          />
         )}
       </div>
+      <Pages />
     </div>
   )
 }

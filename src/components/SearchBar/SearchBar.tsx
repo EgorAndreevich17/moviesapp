@@ -1,23 +1,19 @@
 import React, { useState } from 'react'
 import { Input } from 'antd'
 
-// import { Movie } from '../../models/Movie'
+import { useMovies } from '../../context/MovieContext'
 import './SearchBar.scss'
 
-// interface SearchBarProps {
-//   searchMovie: (query: string) => Promise<Movie[]>
-//   setMovies: (movies: Movie[]) => void
-// }
+export default function SearchBar() {
+  const { searchMovies } = useMovies()
 
-export default function SearchBar({ setMovies, searchMovie }: SearchBarProps) {
   const [query, updateQuery] = useState('')
 
   const findMovies = async (e: React.FormEvent) => {
     e.preventDefault()
     if (query.trim()) {
-      const results = await searchMovie(query)
-      setMovies(results || [])
-      updateQuery('')
+      await searchMovies(query, 1)
+      updateQuery('') // Очищаем поле поиска
     }
   }
 

@@ -21,7 +21,7 @@
       &-box {
         position: relative;
       }
-      &--title{
+      &--title {
         position: absolute;
         top: 0;
         height: 100%;
@@ -53,9 +53,9 @@
       margin: 0px;
     }
 
-    &__rate{
+    &__rate {
       align-content: center;
-      margin-left :20px;
+      margin-left: 20px;
       justify-items: center;
       padding-inline: 4px;
       font-size: 12px;
@@ -63,8 +63,7 @@
       height: 30px;
       flex-shrink: 0;
       border-radius: 50%;
-      border: 2px solid #E9D100
-      
+      border: 2px solid #e9d100;
     }
 
     &__date {
@@ -97,9 +96,9 @@
   }
 }
 
-// .spinner-box {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
+.spinner-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

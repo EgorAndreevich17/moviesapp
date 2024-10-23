@@ -25,6 +25,11 @@ export default function MovieBox({
     ? `https://image.tmdb.org/t/p/w500${image}`
     : 'default.jpg'
 
+  const shortenDescription = (text: string) => {
+    const maxLength: number = 250
+    if (text.length < maxLength) return text
+  }
+
   return (
     <div className="movie-wrapper">
       {isLoading ? (
@@ -66,7 +71,9 @@ export default function MovieBox({
                 </div>
               ))}
             </div>
-            <div className="movie-content__description">{description}</div>
+            <div className="movie-content__description">
+              {shortenDescription(description)}
+            </div>
           </div>
         </>
       )}
