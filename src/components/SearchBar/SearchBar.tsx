@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import { Input } from 'antd'
 
-import { useMovies } from '../../context/MovieContext'
+// import { useMovies } from '../../context/MovieContext'
 import './SearchBar.scss'
 
-export default function SearchBar() {
-  const { searchMovies } = useMovies()
+interface SearchBarProps {
+  // eslint-disable-next-line no-unused-vars
+  searchMovie: (query: string) => Promise<void>
+}
+
+export default function SearchBar({ searchMovie }: SearchBarProps) {
+  // const { searchMovies } = useMovies()
 
   const [query, updateQuery] = useState('')
 
@@ -39,7 +44,7 @@ export default function SearchBar() {
     return [debouncedFunc, teardown]
   }
 
-  const [debouncedFindMovie, clearDebounce] = debounce(searchMovies)
+  const [debouncedFindMovie, clearDebounce] = debounce(searchMovie)
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     updateQuery(e.target.value)

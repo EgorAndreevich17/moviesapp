@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react'
+import { createContext, useState, useContext, ReactNode } from 'react'
 
 import { Movie } from '../models/Movie'
 
@@ -14,8 +14,10 @@ interface MovieContextType {
   url: string
   isLoading: boolean
   query: string
-  searchMovies: () => Promise<void>
-  changePage: () => Promise<void>
+  // eslint-disable-next-line no-unused-vars
+  searchMovies: (newQuery: string, newPage?: number) => Promise<void>
+  // eslint-disable-next-line no-unused-vars
+  changePage: (newPage: number) => Promise<void>
 }
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined)
