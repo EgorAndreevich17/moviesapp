@@ -36,7 +36,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState<string>('')
 
-  const searchMovies = async (newQuery: string, newPage: number) => {
+  const searchMovies = async (newQuery: string, newPage: number = 1) => {
     setPage(newPage)
     setIsLoading(true)
     const newURL = `${BASE_URL}search/movie?query=${newQuery}&include_adult=false&language=en-US`
