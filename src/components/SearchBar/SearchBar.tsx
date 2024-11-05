@@ -44,6 +44,7 @@ export default function SearchBar() {
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     updateQuery(e.target.value)
     if (e.target.value.trim()) {
+      console.log(`updated query: ${e.target.value}`)
       await debouncedFindMovie(e.target.value)
     } else {
       clearDebounce()
