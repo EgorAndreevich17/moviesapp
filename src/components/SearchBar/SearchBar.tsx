@@ -1,58 +1,36 @@
 import React, { useState } from 'react'
 import { Input } from 'antd'
 
-// import { useMovies } from '../../context/MovieContext'
+import { useMovies } from '../../context/MovieContext'
 import './SearchBar.scss'
 
-interface SearchBarProps {
-  // eslint-disable-next-line no-unused-vars
-  searchMovie: (query: string) => Promise<void>
-}
+export default function SearchBar() {
+  const { searchMovies, setQuery, query } = useMovies()
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  )
 
-export default function SearchBar({ searchMovie }: SearchBarProps) {
-  // const { searchMovies } = useMovies()
+  // Для дебаунса
+  const debouncedFindMovie = (newQuery: string) => {
+    if (debounceTimeout) clearTimeout(debounceTimeout)
 
-  const [query, updateQuery] = useState('')
-
-  // const findMovies = async (e: React.FormEvent) => {
-  //   if (query.trim()) {
-  //     await debouncedFindMovie(query, 1)
-  //     updateQuery('') // Очищаем поле поиска
-  //   } else {
-  //     clearDebounce()
-  //   }
-  // }
-  const debounce = function <A = unknown, R = void>(
-    // eslint-disable-next-line no-unused-vars
-    fn: (args: A) => R
-    // eslint-disable-next-line no-unused-vars
-  ): [(args: A) => Promise<R>, () => void] {
-    let timer: ReturnType<typeof setTimeout> | null = null
-
-    const debouncedFunc = (args: A): Promise<R> =>
-      new Promise((resolve) => {
-        if (timer) {
-          clearTimeout(timer)
-        }
-        timer = setTimeout(() => {
-          resolve(fn(args))
-        }, 5000)
-      })
-    const teardown = () => {
-      if (timer) clearTimeout(timer)
-    }
-    return [debouncedFunc, teardown]
+    const timeout = setTimeout(() => {
+      searchMovies(newQuery)
+    }, 3000)
+    setDebounceTimeout(timeout)
   }
 
-  const [debouncedFindMovie, clearDebounce] = debounce(searchMovie)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value
 
-  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateQuery(e.target.value)
-    if (e.target.value.trim()) {
-      console.log(`updated query: ${e.target.value}`)
-      await debouncedFindMovie(e.target.value)
+    setQuery(newQuery)
+
+    if (newQuery.trim()) {
+      console.log(`updated query: ${newQuery}`)
+      debouncedFindMovie(newQuery)
     } else {
-      clearDebounce()
+      setQuery('')
+      if (debounceTimeout) clearTimeout(debounceTimeout)
     }
   }
 

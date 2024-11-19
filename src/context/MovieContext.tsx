@@ -15,9 +15,11 @@ interface MovieContextType {
   isLoading: boolean
   query: string
   // eslint-disable-next-line no-unused-vars
-  searchMovies: (newQuery: string, newPage?: number) => Promise<void>
+  searchMovies: (newQuery: string, newPage?: number) => void
   // eslint-disable-next-line no-unused-vars
-  changePage: (newPage: number) => Promise<void>
+  changePage: (newPage: number) => void
+  // eslint-disable-next-line no-unused-vars
+  setQuery: (newQuery: string) => void
 }
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined)
@@ -38,15 +40,23 @@ export default function MovieProvider({ children }: MovieProviderProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState<string>('')
 
+  let currentRequestId = 0
+
   const searchMovies = async (newQuery: string, newPage: number = 1) => {
     setPage(newPage)
     setIsLoading(true)
-    const newURL = `${BASE_URL}search/movie?query=${newQuery}&include_adult=false&language=en-US`
+    setQuery(newQuery)
+    console.log('🔄 Query обновлён:', newQuery)
+
+    const newURL = `${BASE_URL}search/movie?query=${newQuery}&include_adult=true&language=en-US`
     updateURL(newURL)
 
     const searchUrl = `${newURL}&page=${newPage}`
     try {
-      console.log('Поиск по запросу ', searchUrl)
+      const requestId = ++currentRequestId
+      console.log(
+        `[${requestId}] ⏳ Запрос отправлен: Query="${newQuery}" Page=${newPage}`
+      )
       const response = await fetch(searchUrl, {
         method: 'GET',
         headers: {
@@ -60,9 +70,19 @@ export default function MovieProvider({ children }: MovieProviderProps) {
       }
 
       const data = await response.json()
+
+      if (requestId !== currentRequestId) {
+        console.log(`❌ [${requestId}] Устаревший запрос, данные игнорируются.`)
+        return
+      }
+
+      console.log(
+        `[${requestId}] ✅ Ответ получен: Query="${query}" Page=${newPage}`
+      )
+
+      console.log('📄 Movies обновлены:', data.results)
       setMovies(data.results || [])
       setTotalPages(data.total_pages || 0)
-      setQuery(newQuery)
     } catch (error) {
       console.error('Failed to fetch movies:', error)
     } finally {
@@ -84,6 +104,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
         url,
         isLoading,
         query,
+        setQuery,
         searchMovies,
         changePage,
       }}

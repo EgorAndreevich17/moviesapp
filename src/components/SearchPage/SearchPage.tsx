@@ -10,15 +10,11 @@ import { useMovies } from '../../context/MovieContext'
 import './SearchPage.scss'
 
 export default function SearchPage() {
-  const { movies, page, isLoading, searchMovies } = useMovies()
-
-  const handleSearchMovies = async (query: string) => {
-    await searchMovies(query, page)
-  }
+  const { movies, isLoading } = useMovies()
 
   return (
     <div className="body-wrapper">
-      <SearchBar searchMovie={handleSearchMovies} />
+      <SearchBar />
       <div className="grid-container">
         {movies && movies.length > 0 ? (
           movies.map((movie) => (
