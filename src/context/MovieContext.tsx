@@ -35,7 +35,7 @@ interface MovieProviderProps {
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
 const API_KEY =
-// eslint-disable-next-line
+  // eslint-disable-next-line
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTZkMzU3MTczMWFlYWYxZmFjYzhjMjAzOGM2MDdmYSIsIm5iZiI6MTcyOTA5MjYxOS4yMTE1MDMsInN1YiI6IjY3MGVhZWUzYjE1ZDk3YjFhOTNkYjNlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LOy3-VSdI4l34928pDXXdF8m-BUPpfCwU4dCw-kKi6c'
 
 export default function MovieProvider({ children }: MovieProviderProps) {
@@ -46,7 +46,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
   const [url, updateURL] = useState<string>(BASE_URL)
   const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState<string>('')
-// eslint-disable-next-line
+  // eslint-disable-next-line
   const [genres, setGenres] = useState<Genre[]>([])
   const [guestSessionID, setGuestSessionID] = useState<string>('')
 
@@ -251,7 +251,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
 
       setRatedMovies(data.results || [])
     } catch (error) {
-      const e = error as Error;
+      const e = error as Error
       console.error('Ошибка при получении оцененных фильмов:', e.message)
     }
   }
@@ -306,7 +306,6 @@ export default function MovieProvider({ children }: MovieProviderProps) {
         // console.log('Инициализация гостевой сессии завершена.')
         // await getRatedMovies()
       } catch (error) {
-        F
         console.error('Ошибка инициализации гостевой сессии:', error)
       }
     }
