@@ -251,7 +251,8 @@ export default function MovieProvider({ children }: MovieProviderProps) {
 
       setRatedMovies(data.results || [])
     } catch (error) {
-      console.error('Ошибка при получении оцененных фильмов:', error.message)
+      const e = error as Error;
+      console.error('Ошибка при получении оцененных фильмов:', e.message)
     }
   }
 
