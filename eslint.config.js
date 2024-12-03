@@ -33,26 +33,31 @@ export default [
       },
     },
     rules: {
+      // Общие правила
+      'react/jsx-max-props-per-line': ['error', { maximum: 1 }],
+      'react/jsx-first-prop-new-line': ['error', 'multiline'],
+      'prettier/prettier': ['error', { printWidth: 80, jsxBracketSameLine: false }],
       indent: ['error', 2],
       'prettier/prettier': 'error',
-      'linebreak-style': [0, 'unix'],
+      'linebreak-style': ['error', 'unix'],
       quotes: ['error', 'single'],
-      'no-undef': 'off',
       semi: ['error', 'never'],
-      '@typescript-eslint/no-unused-vars': ['warn'], // Изменил на 'warn' для возможности автоматического исправления
-      'import/no-unresolved': [2, { caseSensitive: false }],
+      'max-len': ['error', { code: 120, tabWidth: 2 }],
+
+      // TypeScript-specific
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+
+      // React-specific
       'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
+      'react/jsx-indent': ['error', 2],
+      'react/jsx-indent-props': ['error', 2],
+
+      // Import rules
+      'import/no-unresolved': [2, { caseSensitive: false }],
       'import/order': [
-        2,
+        'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           'newlines-between': 'always',
         },
       ],

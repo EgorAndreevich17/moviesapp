@@ -15,6 +15,7 @@ export default function Pages() {
       current={page}
       total={totalPages}
       onChange={handlePageChange}
+      showSizeChanger={false}
     />
   )
 }

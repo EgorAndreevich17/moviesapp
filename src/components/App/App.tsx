@@ -1,10 +1,11 @@
 import { Tabs } from 'antd'
 
 import SearchPage from '../SearchPage/SearchPage'
+import RatedPage from '../RatedPage/RatedPage'
 import MovieProvider from '../../context/MovieContext'
 import './App.scss'
 
-function App() {
+export default function App() {
   return (
     <MovieProvider>
       <div className="parent-wrapper">
@@ -20,7 +21,7 @@ function App() {
             {
               label: 'Rated',
               key: '2',
-              children: '',
+              children: <RatedPage />,
             },
           ]}
         />
@@ -28,5 +29,3 @@ function App() {
     </MovieProvider>
   )
 }
-
-export default App

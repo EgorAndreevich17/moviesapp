@@ -1,45 +1,35 @@
+import { useEffect } from 'react'
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { Alert } from 'antd'
-// import { useEffect } from 'react'
-import { format } from 'date-fns'
 
 import Pages from '../Pages/Pages'
 import MovieBox from '../MovieBox/MovieBox'
-import SearchBar from '../SearchBar/SearchBar'
 import { useMovies } from '../../context/MovieContext'
 
-import './SearchPage.scss'
-
-export default function SearchPage() {
-  const { movies, isLoading } = useMovies()
-
-  // useEffect(() => {
-  //   movies.map((movie) => console.log(movie.release_date))
-  // })
-
+export default function RatedPage() {
+  const { ratedMovies, isLoading, getRatedMovies } = useMovies()
+  // console.log(ratedMovies)
+  useEffect(() => {
+    getRatedMovies()
+  }, [])
   return (
-    <div className="body-wrapper">
-      <SearchBar />
+    <>
       <div className="grid-container">
-        {movies && movies.length > 0 ? (
-          movies.map((movie) => (
+        {ratedMovies && ratedMovies.length > 0 ? (
+          ratedMovies.map((movie) => (
             <MovieBox
               key={Number(movie.id)}
               moviename={movie.title}
               genres={movie.genre_ids}
               image={movie.poster_path}
-              rate={movie.vote_average}
+              // rate={movie.vote_average}
               description={movie.overview}
-              isRatedTab={false}
-              date={
-                movie.release_date
-                  ? String(format(new Date(movie.release_date), 'MMMM d, yyyy'))
-                  : 'Release date is unknown'
-              }
-              // date={movie.release_date}
+              date={movie.release_date}
               id={movie.id}
               isLoading={isLoading}
+              rate={movie.rating}
+              isRatedTab={true}
             />
           ))
         ) : isLoading ? (
@@ -49,6 +39,6 @@ export default function SearchPage() {
         )}
       </div>
       <Pages />
-    </div>
+    </>
   )
 }

@@ -26,7 +26,7 @@ export default function SearchBar() {
     setQuery(newQuery)
 
     if (newQuery.trim()) {
-      console.log(`updated query: ${newQuery}`)
+      // console.log(`updated query: ${newQuery}`)
       debouncedFindMovie(newQuery)
     } else {
       setQuery('')
