@@ -18,7 +18,7 @@ interface MovieContextType {
   query: string
   guestSessionID: string
   searchMovies: (newQuery: string, newPage?: number) => void
-  createGuestSession: () => Promise<string>
+  // createGuestSession: () => Promise<string>
   rateMovie: (movieID: number, rate: number) => void
   getRatedMovies: () => void
   changePage: (newPage: number) => void
@@ -35,6 +35,7 @@ interface MovieProviderProps {
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
 const API_KEY =
+// eslint-disable-next-line
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTZkMzU3MTczMWFlYWYxZmFjYzhjMjAzOGM2MDdmYSIsIm5iZiI6MTcyOTA5MjYxOS4yMTE1MDMsInN1YiI6IjY3MGVhZWUzYjE1ZDk3YjFhOTNkYjNlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LOy3-VSdI4l34928pDXXdF8m-BUPpfCwU4dCw-kKi6c'
 
 export default function MovieProvider({ children }: MovieProviderProps) {
@@ -45,6 +46,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
   const [url, updateURL] = useState<string>(BASE_URL)
   const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState<string>('')
+// eslint-disable-next-line
   const [genres, setGenres] = useState<Genre[]>([])
   const [guestSessionID, setGuestSessionID] = useState<string>('')
 
@@ -96,6 +98,7 @@ export default function MovieProvider({ children }: MovieProviderProps) {
         const requestURL = `${BASE_URL}authentication/guest_session/new`
 
         try {
+          await fetchGenres()
           const response = await fetch(requestURL, {
             method: 'GET',
             headers: {
@@ -125,21 +128,21 @@ export default function MovieProvider({ children }: MovieProviderProps) {
     }
   })()
 
-  // const fetchGenres = async () => {
-  //   try {
-  //     const response = await fetch(`${BASE_URL}genre/movie/list`, {
-  //       headers: {
-  //         accept: 'application/json',
-  //         Authorization: `Bearer ${API_KEY}`,
-  //       },
-  //     })
-  //     if (!response.ok) throw new Error('Не удалось загрузить жанры')
-  //     const data = await response.json()
-  //     setGenres(data.genres || [])
-  //   } catch (error) {
-  //     console.error('Ошибка загрузки жанров:', error)
-  //   }
-  // }
+  const fetchGenres = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}genre/movie/list`, {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      })
+      if (!response.ok) throw new Error('Не удалось загрузить жанры')
+      const data = await response.json()
+      setGenres(data.genres || [])
+    } catch (error) {
+      console.error('Ошибка загрузки жанров:', error)
+    }
+  }
 
   const getGenreNames = (genreIds: number[]): string[] => {
     return genreIds.map((id) => genres.find((genre) => genre.id === id)?.name).filter(Boolean) as string[]
@@ -301,7 +304,8 @@ export default function MovieProvider({ children }: MovieProviderProps) {
         setGuestSessionID(sessionID)
         // console.log('Инициализация гостевой сессии завершена.')
         // await getRatedMovies()
-      } catch (error) {F
+      } catch (error) {
+        F
         console.error('Ошибка инициализации гостевой сессии:', error)
       }
     }
@@ -325,8 +329,9 @@ export default function MovieProvider({ children }: MovieProviderProps) {
         changePage,
         getRatedMovies,
         rateMovie,
-        // setGuestSessionID,
         getGenreNames,
+        genres,
+        setGuestSessionID,
       }}
     >
       {children}

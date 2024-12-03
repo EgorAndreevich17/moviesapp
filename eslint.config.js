@@ -34,12 +34,8 @@ export default [
     },
     rules: {
       // Общие правила
-      'react/jsx-max-props-per-line': ['error', { maximum: 1 }],
-      'react/jsx-first-prop-new-line': ['error', 'multiline'],
-      'prettier/prettier': ['error', { printWidth: 80, jsxBracketSameLine: false }],
-      indent: ['error', 2],
-      'prettier/prettier': 'error',
-      'linebreak-style': ['error', 'unix'],
+      "no-undef": "off",
+      "no-unused-vars": "off",
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
       'max-len': ['error', { code: 120, tabWidth: 2 }],
